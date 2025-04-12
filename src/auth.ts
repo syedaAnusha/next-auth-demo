@@ -9,7 +9,7 @@ export const {
   providers: [
     GithubProvider({
       clientId: process.env.NEXT_PUBLIC_GITHUB_ID ?? "",
-      clientSecret: process.env.NEXT_PUBLIC_GITHUB_SECRET ?? "",
+      clientSecret: process.env.GITHUB_SECRET ?? "",
       authorization: {
         params: {
           scope: "read:user user:email",
@@ -18,7 +18,7 @@ export const {
     }),
     GoogleProvider({
       clientId: process.env.NEXT_PUBLIC_GOOGLE_ID ?? "",
-      clientSecret: process.env.NEXT_PUBLIC_GOOGLE_SECRET ?? "",
+      clientSecret: process.env.GOOGLE_SECRET ?? "",
       authorization: {
         params: {
           prompt: "consent",
@@ -45,6 +45,6 @@ export const {
       },
     },
   },
-  secret: process.env.NEXT_PUBLIC_AUTH_SECRET,
+  secret: process.env.AUTH_SECRET,
   debug: process.env.NODE_ENV === "development",
 });
