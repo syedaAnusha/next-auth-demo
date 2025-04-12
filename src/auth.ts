@@ -28,9 +28,6 @@ export const {
       },
     }),
   ],
-  pages: {
-    signIn: "/signin",
-  },
   cookies: {
     sessionToken: {
       name:

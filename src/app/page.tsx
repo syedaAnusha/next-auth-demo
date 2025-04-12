@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react";
 import { LogoutButton } from "@/components/auth/logout-button";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -22,6 +23,8 @@ export default function Home() {
   const { data: session } = useSession();
   const [likes, setLikes] = useState(0);
   const [showBio, setShowBio] = useState(false);
+  const searchParams = useSearchParams();
+  const defaultTab = searchParams.get("tab") || "login";
 
   return (
     <div className="min-h-screen p-8 pb-20 gap-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
@@ -129,7 +132,7 @@ export default function Home() {
                 </p>
               </div>
 
-              <Tabs defaultValue="login" className="w-full">
+              <Tabs defaultValue={defaultTab} className="w-full">
                 <TabsList className="grid w-full grid-cols-2">
                   <TabsTrigger value="login">Login</TabsTrigger>
                   <TabsTrigger value="signup">Sign Up</TabsTrigger>
