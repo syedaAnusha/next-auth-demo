@@ -2,29 +2,23 @@
 
 import { useSession } from "next-auth/react";
 import { LogoutButton } from "@/components/auth/logout-button";
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { signIn } from "next-auth/react";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { SignupForm } from "@/components/signup-form";
-import { LoginForm } from "@/components/login-form";
 import Image from "next/image";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Github } from "lucide-react";
 
 export default function Home() {
   const { data: session } = useSession();
   const [likes, setLikes] = useState(0);
   const [showBio, setShowBio] = useState(false);
-  const searchParams = useSearchParams();
-  const defaultTab = searchParams.get("tab") || "login";
 
   return (
     <div className="min-h-screen p-8 pb-20 gap-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
@@ -128,70 +122,44 @@ export default function Home() {
                   Welcome Back
                 </h1>
                 <p className="text-muted-foreground mt-2">
-                  Sign up or log in to your account
+                  Sign in to your account
                 </p>
               </div>
 
-              <Tabs defaultValue={defaultTab} className="w-full">
-                <TabsList className="grid w-full grid-cols-2">
-                  <TabsTrigger value="login">Login</TabsTrigger>
-                  <TabsTrigger value="signup">Sign Up</TabsTrigger>
-                </TabsList>
-
-                <TabsContent value="login">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Login</CardTitle>
-                      <CardDescription>
-                        Enter your credentials to access your account
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <LoginForm />
-                    </CardContent>
-                    <CardFooter className="flex flex-col space-y-4">
-                      <div className="text-sm text-muted-foreground text-center">
-                        <Link
-                          href="/forgot-password"
-                          className="text-primary underline-offset-4 hover:underline"
-                        >
-                          Forgot your password?
-                        </Link>
-                      </div>
-                    </CardFooter>
-                  </Card>
-                </TabsContent>
-
-                <TabsContent value="signup">
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Create an account</CardTitle>
-                      <CardDescription>
-                        Enter your details to create a new account
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <SignupForm />
-                    </CardContent>
-                    <CardFooter className="text-sm text-muted-foreground text-center">
-                      By creating an account, you agree to our{" "}
-                      <Link
-                        href="/terms"
-                        className="text-primary underline-offset-4 hover:underline"
-                      >
-                        Terms of Service
-                      </Link>{" "}
-                      and{" "}
-                      <Link
-                        href="/privacy"
-                        className="text-primary underline-offset-4 hover:underline"
-                      >
-                        Privacy Policy
-                      </Link>
-                    </CardFooter>
-                  </Card>
-                </TabsContent>
-              </Tabs>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Sign In</CardTitle>
+                  <CardDescription>
+                    Choose your preferred sign in method
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full"
+                    onClick={() => signIn("github", { callbackUrl: "/" })}
+                  >
+                    <Github className="mr-2 h-4 w-4" />
+                    Continue with Github
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full"
+                    onClick={() => signIn("google", { callbackUrl: "/" })}
+                  >
+                    <Image
+                      src="/google.svg"
+                      alt="google"
+                      className="mr-2 h-4 w-4"
+                      width={24}
+                      height={24}
+                    />
+                    Continue with Google
+                  </Button>
+                </CardContent>
+              </Card>
             </div>
           </div>
         )}
