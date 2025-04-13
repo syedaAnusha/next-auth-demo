@@ -18,7 +18,7 @@ export const {
     }),
     GoogleProvider({
       clientId: process.env.NEXT_PUBLIC_GOOGLE_ID ?? "",
-      clientSecret: process.env.NEXT_PUBLIC_GOOGLE_SECRET ?? "",
+      clientSecret: process.env.GOOGLE_SECRET ?? "",
       authorization: {
         params: {
           prompt: "consent",
