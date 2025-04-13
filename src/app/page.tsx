@@ -33,7 +33,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen p-8 pb-20 gap-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <div className="max-w-4xl mx-auto space-y-8">
+      <div className="max-w-4xl mx-auto">
         {session ? (
           <>
             <Card className="p-6">
@@ -126,52 +126,54 @@ export default function Home() {
             </div>
           </>
         ) : (
-          <div className="flex min-h-screen flex-col items-center justify-center p-4 md:p-24">
-            <div className="w-full max-w-md mx-auto space-y-6">
-              <div className="text-center mb-8">
-                <h1 className="text-3xl font-bold tracking-tight">
-                  Welcome Back
-                </h1>
-                <p className="text-muted-foreground mt-2">
-                  Sign in to your account
-                </p>
-              </div>
+          <div className="flex min-h-screen flex-col items-center justify-start p-4 md:p-24">
+            <Card className="w-full max-w-md mx-auto shadow-lg">
+              <CardContent className="p-6 space-y-6">
+                <Card className="text-center">
+                  <CardHeader>
+                    <CardTitle className="text-3xl">Welcome Back</CardTitle>
+                    <CardDescription className="mt-2">
+                      Sign in to your account
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle>Sign In</CardTitle>
-                  <CardDescription>
-                    Choose your preferred sign in method
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className="w-full"
-                    onClick={() => signIn("github", { callbackUrl: "/" })}
-                  >
-                    <Github className="mr-2 h-4 w-4" />
-                    Continue with Github
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className="w-full"
-                    onClick={() => signIn("google", { callbackUrl: "/" })}
-                  >
-                    <Image
-                      src="/google.svg"
-                      alt="google"
-                      className="mr-2 h-4 w-4"
-                      width={24}
-                      height={24}
-                    />
-                    Continue with Google
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Sign In</CardTitle>
+                    <CardDescription>
+                      Choose your preferred sign in method
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="w-full"
+                      onClick={() => signIn("github", { callbackUrl: "/" })}
+                    >
+                      <Github className="mr-2 h-4 w-4" />
+                      Continue with Github
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="w-full"
+                      onClick={() => signIn("google", { callbackUrl: "/" })}
+                    >
+                      <Image
+                        src="/google.svg"
+                        alt="google"
+                        className="mr-2 h-4 w-4"
+                        width={24}
+                        height={24}
+                      />
+                      Continue with Google
+                    </Button>
+                  </CardContent>
+                </Card>
+              </CardContent>
+            </Card>
           </div>
         )}
       </div>
