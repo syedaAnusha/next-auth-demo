@@ -11,14 +11,25 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Github } from "lucide-react";
 
 export default function Home() {
   const { data: session } = useSession();
-  const [likes, setLikes] = useState(0);
-  const [showBio, setShowBio] = useState(false);
+  const [likes, setLikes] = useState<number | null>(null);
+  const [showBio, setShowBio] = useState<boolean | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    setLikes(0);
+    setShowBio(false);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen p-8 pb-20 gap-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
@@ -58,7 +69,7 @@ export default function Home() {
                     </Button>
                     <Button
                       variant="outline"
-                      onClick={() => setLikes((prev) => prev + 1)}
+                      onClick={() => setLikes((prev) => (prev ?? 0) + 1)}
                     >
                       👍 {likes} Likes
                     </Button>
